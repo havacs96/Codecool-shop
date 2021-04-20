@@ -1,6 +1,5 @@
 package com.codecool.shop.dao.implementation;
 
-
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
@@ -9,7 +8,6 @@ import com.codecool.shop.model.Supplier;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class OrderDaoMem implements OrderDao {
 
@@ -29,7 +27,7 @@ public class OrderDaoMem implements OrderDao {
     }
 
     @Override
-    public void add(Product product) {
+    public void add(LineItem product) {
         data.add(product);
     }
 

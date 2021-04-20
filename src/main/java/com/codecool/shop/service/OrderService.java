@@ -25,4 +25,17 @@ public class OrderService {
     public int getCartSize() {
         return orderDao.getAll().size();
     }
+
+    public List<LineItem> getAllItems() {
+        return orderDao.getAll();
+    }
+
+    public LineItem getItemById(int id) {
+        for (LineItem lineItem : orderDao.getAll()) {
+            if (lineItem.getId() == id) {
+                return lineItem;
+            }
+        }
+        return null;
+    }
 }

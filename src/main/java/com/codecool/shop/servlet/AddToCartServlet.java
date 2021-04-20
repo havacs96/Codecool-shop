@@ -2,6 +2,7 @@ package com.codecool.shop.servlet;
 
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.model.LineItem;
 import com.codecool.shop.service.OrderService;
 
 import javax.servlet.ServletException;
@@ -24,7 +25,14 @@ public class AddToCartServlet extends HttpServlet {
         String id = req.getParameter("id");
 
         var product = orderService.getProductById(Integer.parseInt(id));
-        orderService.addNewLineItem(product);
+
+        try {
+            var orderItem = orderService.getItemById(product.getId());
+            orderItem.addLineItem();
+        } catch (NullPointerException e) {
+            var item = new LineItem(product);
+            orderService.addNewLineItem(item);
+        }
 
         int size = orderService.getCartSize();
 

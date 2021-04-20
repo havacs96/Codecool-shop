@@ -1,14 +1,14 @@
 package com.codecool.shop.dao;
 
-import com.codecool.shop.model.Product;
+import com.codecool.shop.model.LineItem;
 
 import java.util.List;
 
 public interface OrderDao {
 
-    void add(Product product);
-    Product find(int id);
+    void add(LineItem item);
+    LineItem find(int id);
     void remove(int id);
 
-    List<Product> getAll();
+    List<LineItem> getAll();
 }
