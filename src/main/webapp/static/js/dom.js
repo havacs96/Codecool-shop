@@ -9,6 +9,7 @@ export let dom = {
     addListeners: function () {
         dom.addSortListeners()
         dom.addCartButtonListeners()
+        dom.addCheckCartButtonListener()
     },
     addSortListeners: function (){
         let options = document.querySelectorAll("select")
@@ -68,6 +69,16 @@ export let dom = {
     },
     changeCounter: function (cartSize) {
         document.querySelector(".shopping-cart").innerHTML = cartSize
-
     },
+    addCheckCartButtonListener() {
+        let cartIcon = document.querySelector(".iconify.cart")
+        let cartModal = document.querySelector(".modal")
+        console.log(cartIcon)
+        cartIcon.addEventListener("mouseenter", (e) =>{
+            cartModal.style.display = "block";
+        })
+        cartIcon.addEventListener("mouseleave", (e) =>{
+            cartModal.style.display = "none";
+        })
+    }
 }

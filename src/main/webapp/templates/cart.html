@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="copy">
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <h3>Shopping cart</h3>
+            <div th:each="item,iterStat : ${items}">
+                <div th:text="${item.name}"></div>
+                <div th:text="${item.quantity}"></div>
+                <div th:text="${item.defaultPriceForOne}"></div>
+                <div th:text="${item.defaultPriceSum}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

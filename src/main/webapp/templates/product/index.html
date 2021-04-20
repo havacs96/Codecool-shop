@@ -7,6 +7,8 @@
 
     <title>Codecool Shop</title>
 
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -32,12 +34,10 @@
 </head>
 
 <body>
-<div class="shopping-cart"></div>
-
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+<div>
+    <span class="iconify cart" data-icon="noto-v1:shopping-cart" data-inline="false"></span>
+    <div class="shopping-cart"></div>
 </div>
-
 <div class="container">
     <label for="category-chooser">
         <select class="category-option" name="category-chooser" id="category-chooser">
@@ -49,6 +49,7 @@
             <option th:each="supplier,iterStat : ${suppliers}" th:value="${supplier.name}" th:text="${supplier.name}" th:attr="data-id=${supplier.id}" data-sort="supplier"></option>
         </select>
     </label>
+    3
 
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
@@ -73,6 +74,7 @@
 </div>
 
 <div th:replace="footer.html :: copy"></div>
+<div th:replace="cart.html :: copy"></div>
 
 </body>
 </html>
