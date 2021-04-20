@@ -2,7 +2,10 @@ package com.codecool.shop.service;
 
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Product;
+
+import java.util.List;
 
 public class OrderService {
     private ProductDao productDao;
@@ -18,7 +21,7 @@ public class OrderService {
         return productDao.find(id);
     }
 
-    public void addNewLineItem(Product product) {
+    public void addNewLineItem(LineItem product) {
         orderDao.add(product);
     }
 
