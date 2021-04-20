@@ -13,5 +13,11 @@ export let dataHandler = {
             id: id, sortBy: sortBy}), (response) => {
             callback(response)
         })
+    },
+    addProductToCart: function (productId, callback) {
+        this._api_get("/add_to_cart?" + new URLSearchParams({
+            id: productId}), (response) => {
+            callback(response)
+        })
     }
 }
