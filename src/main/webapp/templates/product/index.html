@@ -40,7 +40,12 @@
 <div class="container">
     <label for="category-chooser">
         <select class="category-option" name="category-chooser" id="category-chooser">
-            <option th:each="category,iterStat : ${categories}" th:value="${category.name}" th:text="${category.name}" th:attr="data-id=${category.id}"></option>
+            <option th:each="category,iterStat : ${categories}" th:value="${category.name}" th:text="${category.name}" th:attr="data-id=${category.id}" data-sort="category"></option>
+        </select>
+    </label>
+    <label for="supplier-chooser">
+        <select class="supplier-option" name="supplier-chooser" id="supplier-chooser">
+            <option th:each="supplier,iterStat : ${suppliers}" th:value="${supplier.name}" th:text="${supplier.name}" th:attr="data-id=${supplier.id}" data-sort="supplier"></option>
         </select>
     </label>
 

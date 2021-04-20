@@ -10,7 +10,7 @@ export let dataHandler = {
     },
     getProducts: function (id, callback) {
         this._api_get("/product?" + new URLSearchParams({
-            id: id}), (response) => {
+            id: id, sortBy: sortBy}), (response) => {
             callback(response)
         })
     }

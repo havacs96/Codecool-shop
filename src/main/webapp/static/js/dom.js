@@ -7,23 +7,24 @@ export let dom = {
         this.addListeners()
     },
     addListeners: function () {
-        let categoryOption = document.querySelector(".category-option")
-        categoryOption.addEventListener("change", (e) => {
-            dom.changeProductsForCategory(e);
-        })
-
+        let options = document.querySelectorAll("select")
+        for (let option of options) {
+            option.addEventListener("change", (e) => {
+                dom.changeProducts(e);
+            })
+        }
     },
-    changeProductsForCategory: function (e) {
-        dom.loadProduct(e.currentTarget.selectedOptions[0].dataset.id)
+    changeProducts: function (e) {
+        dom.loadProduct(e.currentTarget.selectedOptions[0].dataset.sort,
+            e.currentTarget.selectedOptions[0].dataset.id)
     },
-    loadProduct(id) {
-        dataHandler.getProducts(id, function (product) {
+    loadProduct(sortBy, id) {
+        dataHandler.getProducts(sortBy, id, function (product) {
             dom.showProducts(product)
         })
     },
     showProducts(products) {
         let contentBody = document.querySelector("#products")
-        console.log(contentBody)
         contentBody.innerHTML = ""
         let cards = ""
         for (let product of products) {
@@ -46,6 +47,5 @@ export let dom = {
             cards += card
         }
         contentBody.innerHTML = `<div class="col col-sm-12 col-md-6 col-lg-4">${cards}</div>`
-        console.log(contentBody)
     }
 }
