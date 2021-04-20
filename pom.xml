@@ -19,6 +19,7 @@
         <version.plugin.jetty>9.4.30.v20200611</version.plugin.jetty>
         <version.javax.servlet.api>4.0.1</version.javax.servlet.api>
         <version.thymeleaf>3.0.11.RELEASE</version.thymeleaf>
+        <version.slf4j>1.7.22</version.slf4j>
     </properties>
 
     <build>
@@ -60,6 +61,16 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>${version.javax.servlet.api}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.22</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.22</version>
         </dependency>
         <!-- See comment at jetty plugin -->
         <!-- <dependency> -->
