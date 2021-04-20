@@ -26,6 +26,9 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+
+    <!-- JS component -->
+    <script type="module" src='/static/js/main.js' defer></script>
 </head>
 
 <body>
@@ -35,9 +38,11 @@
 </div>
 
 <div class="container">
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
-    </div>
+    <label for="category-chooser">
+        <select class="category-option" name="category-chooser" id="category-chooser">
+            <option th:each="category,iterStat : ${categories}" th:value="${category.name}" th:text="${category.name}" th:attr="data-id=${category.id}"></option>
+        </select>
+    </label>
 
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
