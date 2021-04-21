@@ -1,6 +1,6 @@
 package com.codecool.shop.dao;
 
-import com.codecool.shop.model.LineItem;
+import com.codecool.shop.order.LineItem;
 
 import java.util.List;
 

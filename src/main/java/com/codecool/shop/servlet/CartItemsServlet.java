@@ -2,7 +2,7 @@ package com.codecool.shop.servlet;
 
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.model.LineItem;
+import com.codecool.shop.order.LineItem;
 import com.codecool.shop.service.OrderService;
 import com.google.gson.Gson;
 import org.json.JSONObject;
@@ -56,19 +56,18 @@ public class CartItemsServlet extends HttpServlet {
         JSONObject data = new JSONObject(content.toString());
         var quantity = data.getString("value");
         var id = data.getInt("current_id");
+            var quantityInt = Integer.parseInt(quantity);
 
-        var quantityInt = Integer.parseInt(quantity);
+            if (quantityInt == 0) {
+                orderService.removeLineItem(id);
+            } else {
+                orderService.setQuantityForLineItem(quantityInt, id);
+            }
 
-        if (quantityInt == 0) {
-            orderService.removeLineItem(id);
-        } else {
-            orderService.setQuantityForLineItem(quantityInt, id);
-        }
-
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        PrintWriter out = resp.getWriter();
-        out.println("{\"log\": \"update done\"}");
-        out.flush();
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            PrintWriter out = resp.getWriter();
+            out.println("{\"log\": \"update done\"}");
+            out.flush();
     }
 }

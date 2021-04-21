@@ -1,4 +1,6 @@
-package com.codecool.shop.model;
+package com.codecool.shop.order;
+
+import com.codecool.shop.model.Product;
 
 import java.util.Currency;
 
