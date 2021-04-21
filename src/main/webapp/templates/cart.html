@@ -6,12 +6,20 @@
     <div id="cartModal" class="modal">
         <div class="modal-content">
             <h3>Shopping cart</h3>
-            <div th:each="item,iterStat : ${items}">
-                <div th:text="${item.name}"></div>
-                <div th:text="${item.quantity}"></div>
-                <div th:text="${item.defaultPriceForOne}"></div>
-                <div th:text="${item.defaultPriceSum}"></div>
-            </div>
+            <table class="table-data">
+                <tr>
+                    <th>Name:</th>
+                    <th>Quantity:</th>
+                    <th>Price:</th>
+                    <th>Total price:</th>
+                </tr>
+                <tr th:each="item,iterStat : ${items}">
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.quantity}"></td>
+                    <td th:text="${item.defaultPriceForOne + ' ' + item.defaultCurrency}"></td>
+                    <td th:text="${item.defaultPriceSum + ' ' + item.defaultCurrency}"></td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

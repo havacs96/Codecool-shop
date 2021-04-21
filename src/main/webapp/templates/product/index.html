@@ -34,9 +34,10 @@
 </head>
 
 <body>
+<h1>Bolt</h1>
 <div>
     <span class="iconify cart" data-icon="noto-v1:shopping-cart" data-inline="false"></span>
-    <div class="shopping-cart"></div>
+    <a href="/cart_review" class="shopping-cart" th:text="${size}"></a>
 </div>
 <div class="container">
     <label for="category-chooser">
@@ -49,7 +50,6 @@
             <option th:each="supplier,iterStat : ${suppliers}" th:value="${supplier.name}" th:text="${supplier.name}" th:attr="data-id=${supplier.id}" data-sort="supplier"></option>
         </select>
     </label>
-    3
 
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">

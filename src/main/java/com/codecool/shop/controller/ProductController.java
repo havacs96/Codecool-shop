@@ -1,8 +1,5 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
@@ -36,6 +33,7 @@ public class ProductController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("categories", productService.getAllProductCategories());
         context.setVariable("items", orderService.getAllItems());
+        context.setVariable("size", orderService.getAllItems().size());
         context.setVariable("suppliers", productService.getAllProductSuppliers());
         context.setVariable("products", productService.getProductsForCategory(1));
         // // Alternative setting of the template context

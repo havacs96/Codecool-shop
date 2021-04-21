@@ -27,6 +27,16 @@ export let dom = {
             })
         }
     },
+    addCheckCartButtonListener() {
+        let cartIcon = document.querySelector(".iconify.cart")
+        let cartModal = document.querySelector(".modal")
+        cartIcon.addEventListener("mouseenter", (e) =>{
+            cartModal.style.display = "block";
+        })
+        cartIcon.addEventListener("mouseleave", (e) =>{
+            cartModal.style.display = "none";
+        })
+    },
     changeProducts: function (e) {
         dom.loadProduct(e.currentTarget.selectedOptions[0].dataset.sort,
             e.currentTarget.selectedOptions[0].dataset.id)
@@ -65,20 +75,63 @@ export let dom = {
     addToCart: function (e) {
         dataHandler.addProductToCart(e.currentTarget.dataset.id, function (cartSize){
             dom.changeCounter(cartSize);
+            dom.loadCart();
         })
     },
     changeCounter: function (cartSize) {
         document.querySelector(".shopping-cart").innerHTML = cartSize
     },
-    addCheckCartButtonListener() {
-        let cartIcon = document.querySelector(".iconify.cart")
-        let cartModal = document.querySelector(".modal")
-        console.log(cartIcon)
-        cartIcon.addEventListener("mouseenter", (e) =>{
-            cartModal.style.display = "block";
+    loadCart: function () {
+        dataHandler.getCartItems(function (items){
+            dom.updateCart(items)
         })
-        cartIcon.addEventListener("mouseleave", (e) =>{
-            cartModal.style.display = "none";
-        })
+    },
+    updateCart(items) {
+        let tableData = document.querySelector(".table-data")
+        tableData.innerHTML = ''
+        let listItems = "";
+        for (let item of items) {
+            let sum = item.quantity*item.defaultPrice;
+            let listItem = `<tr data-id="${item.id}">
+                    <td>${item.name}</td>
+                    <td class="quantity">${item.quantity}</td>
+                    <td>${item.defaultPrice} ${item.defaultCurrency}</td>
+                    <td>${sum} ${item.defaultCurrency}</td>
+                    </tr>`
+            listItems += listItem
+        }
+        tableData.innerHTML = `
+                <tr>
+                    <th>Name:</th>
+                    <th>Quantity:</th>
+                    <th>Price:</th>
+                    <th>Total price:</th>
+                </tr>
+                ${listItems}`;
+        dom.addEditQuantityListener()
+    },
+    addEditQuantityListener() {
+        let quantityFields = document.querySelectorAll(".quantity")
+        for (let quantityField of quantityFields) {
+            quantityField.addEventListener("click", dom.changeQuantityListener)
+        }
+    },
+    changeQuantityListener(e) {
+        e.currentTarget.removeEventListener('click', dom.changeQuantityListener)
+        let oldQuantity = e.currentTarget.innerHTML
+        e.currentTarget.innerHTML = ''
+        let inputField = `<input type="text" class="changed-quantity" value="${oldQuantity}">`
+        e.currentTarget.insertAdjacentHTML("beforeend", inputField);
+        e.currentTarget.addEventListener("keydown", dom.saveNewQuantity)
+    },
+    saveNewQuantity(e) {
+        if (e.key === "Enter") {
+            e.currentTarget.removeEventListener("keydown", dom.saveNewQuantity)
+            let changedQuantity = document.querySelector('.changed-quantity');
+            e.currentTarget.innerHTML = changedQuantity.value
+            e.currentTarget.addEventListener('click', dom.changeQuantityListener)
+            let currentId = JSON.parse(e.currentTarget.parentNode.dataset["id"])
+            dataHandler.changeQuantity(currentId, changedQuantity.value, dom.loadCart);
+        }
     }
 }
