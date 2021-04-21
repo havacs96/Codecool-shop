@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+
+  <!-- JS component -->
+  <script type="module" src='/static/js/cart_dom.js' defer></script>
+</head>
+<body>
+<h3>Shopping cart</h3>
+<table class="table-data">
+  <tr>
+    <th>Name:</th>
+    <th>Quantity:</th>
+    <th>Price:</th>
+    <th>Total price:</th>
+  </tr>
+  <tr th:each="item,iterStat : ${items}" th:attr="data-id=${item.id}">
+    <td th:text="${item.name}"></td>
+    <td class="quantity" th:text="${item.quantity}"></td>
+    <td th:text="${item.defaultPriceForOne + ' ' + item.defaultCurrency}"></td>
+    <td th:text="${item.defaultPriceSum + ' ' + item.defaultCurrency}"></td>
+  </tr>
+</table>
+</body>
+</html>

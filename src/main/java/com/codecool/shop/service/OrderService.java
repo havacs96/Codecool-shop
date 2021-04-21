@@ -41,4 +41,13 @@ public class OrderService {
         }
         return null;
     }
+
+    public void removeLineItem(int id) {
+        orderDao.remove(id);
+    }
+
+    public void setQuantityForLineItem(int quantity, int id) {
+        var item = orderDao.find(id);
+        item.setQuantity(quantity);
+    }
 }

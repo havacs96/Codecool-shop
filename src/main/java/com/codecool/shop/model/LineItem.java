@@ -52,4 +52,15 @@ public class LineItem {
     public int getQuantity() {
         return quantity;
     }
+
+    @Override
+    public String toString() {
+        return "LineItem{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", defaultPrice=" + defaultPrice +
+                ", defaultCurrency=" + defaultCurrency +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
