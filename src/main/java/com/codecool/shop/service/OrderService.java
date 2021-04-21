@@ -2,7 +2,7 @@ package com.codecool.shop.service;
 
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.model.LineItem;
+import com.codecool.shop.order.LineItem;
 import com.codecool.shop.model.Product;
 
 import java.util.List;

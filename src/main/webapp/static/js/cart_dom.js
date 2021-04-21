@@ -8,6 +8,8 @@ let cart_dom = {
     },
     addListeners: function () {
         dom.addEditQuantityListener()
+        dom.addCheckOutButtonListeners()
+        dom.addCancelButtonListener()
     }
 }
 

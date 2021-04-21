@@ -2,7 +2,7 @@ package com.codecool.shop.servlet;
 
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.model.LineItem;
+import com.codecool.shop.order.LineItem;
 import com.codecool.shop.service.OrderService;
 
 import javax.servlet.ServletException;

@@ -120,18 +120,38 @@ export let dom = {
         e.currentTarget.removeEventListener('click', dom.changeQuantityListener)
         let oldQuantity = e.currentTarget.innerHTML
         e.currentTarget.innerHTML = ''
-        let inputField = `<input type="text" class="changed-quantity" value="${oldQuantity}">`
+        let inputField = `<input type="text" class="changed-quantity" value="${oldQuantity}" data-oldquantity="${oldQuantity}">`
         e.currentTarget.insertAdjacentHTML("beforeend", inputField);
         e.currentTarget.addEventListener("keydown", dom.saveNewQuantity)
     },
     saveNewQuantity(e) {
-        if (e.key === "Enter") {
-            e.currentTarget.removeEventListener("keydown", dom.saveNewQuantity)
-            let changedQuantity = document.querySelector('.changed-quantity');
-            e.currentTarget.innerHTML = changedQuantity.value
-            e.currentTarget.addEventListener('click', dom.changeQuantityListener)
-            let currentId = JSON.parse(e.currentTarget.parentNode.dataset["id"])
-            dataHandler.changeQuantity(currentId, changedQuantity.value, dom.loadCart);
+        let changedQuantity = document.querySelector('.changed-quantity');
+        if (e.key === "Enter" ) {
+            if (!isNaN(changedQuantity.value)){
+                e.currentTarget.removeEventListener("keydown", dom.saveNewQuantity)
+                e.currentTarget.innerHTML = changedQuantity.value
+                e.currentTarget.addEventListener('click', dom.changeQuantityListener)
+                let currentId = JSON.parse(e.currentTarget.parentNode.dataset["id"])
+                dataHandler.changeQuantity(currentId, changedQuantity.value, dom.loadCart);
+            } else {
+                e.currentTarget.removeEventListener("keydown", dom.saveNewQuantity)
+                e.currentTarget.innerHTML = changedQuantity.dataset.oldquantity
+                e.currentTarget.addEventListener('click', dom.changeQuantityListener)
+            }
         }
+    },
+    addCheckOutButtonListeners() {
+        let checkOutButton = document.querySelector("#checkout-button")
+        let checkOutModal = document.querySelector("#checkOutModal")
+        checkOutButton.addEventListener("click", (e)=> {
+            checkOutModal.style.display = "block"
+        })
+    },
+    addCancelButtonListener() {
+        let cancelButton = document.querySelector(".cancel")
+        let checkOutModal = document.querySelector("#checkOutModal")
+        cancelButton.addEventListener("click", (e)=> {
+            checkOutModal.style.display = "none"
+        })
     }
 }

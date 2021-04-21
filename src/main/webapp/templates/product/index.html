@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <title>Codecool Shop</title>
 
@@ -16,61 +16,67 @@
 
     <!--Latest compiled and minified Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 
     <!-- JS component -->
     <script type="module" src='/static/js/main.js' defer></script>
 </head>
 
+
 <body>
-<h1>Bolt</h1>
-<div>
+<div class="infoBar">
+    <p>Bolt</p>
     <span class="iconify cart" data-icon="noto-v1:shopping-cart" data-inline="false"></span>
     <a href="/cart_review" class="shopping-cart" th:text="${size}"></a>
+    <div class="sort">
+        <label for="category-chooser">
+            <select class="category-option" name="category-chooser" id="category-chooser">
+                <option th:each="category,iterStat : ${categories}" th:value="${category.name}"
+                        th:text="${category.name}" th:attr="data-id=${category.id}" data-sort="category"></option>
+            </select>
+        </label>
+    </div>
+    <div class="sort">
+        <label for="supplier-chooser">
+            <select class="supplier-option" name="supplier-chooser" id="supplier-chooser">
+                <option th:each="supplier,iterStat : ${suppliers}" th:value="${supplier.name}"
+                        th:text="${supplier.name}" th:attr="data-id=${supplier.id}" data-sort="supplier"></option>
+            </select>
+        </label>
+    </div>
 </div>
-<div class="container">
-    <label for="category-chooser">
-        <select class="category-option" name="category-chooser" id="category-chooser">
-            <option th:each="category,iterStat : ${categories}" th:value="${category.name}" th:text="${category.name}" th:attr="data-id=${category.id}" data-sort="category"></option>
-        </select>
-    </label>
-    <label for="supplier-chooser">
-        <select class="supplier-option" name="supplier-chooser" id="supplier-chooser">
-            <option th:each="supplier,iterStat : ${suppliers}" th:value="${supplier.name}" th:text="${supplier.name}" th:attr="data-id=${supplier.id}" data-sort="supplier"></option>
-        </select>
-    </label>
-
-    <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                    <p class="card-text" th:text="${prod.description}">Product description... </p>
+<div id="products" class="row">
+    <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
+        <div class="card">
+            <img class="" src="http://placehold.it/400x250/000/fff"
+                 th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
+            <div class="card-header">
+                <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                <p class="card-text" th:text="${prod.description}">Product description... </p>
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                 </div>
-                <div class="card-body">
-                    <div class="card-text">
-                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                    </div>
-                    <div class="card-text">
-                        <a class="btn btn-success add-to-cart" th:attr="data-id=${prod.id}">Add to cart</a>
-                    </div>
+                <div class="card-text">
+                    <a class="btn btn-success add-to-cart" th:attr="data-id=${prod.id}">Add to cart</a>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <div th:replace="footer.html :: copy"></div>

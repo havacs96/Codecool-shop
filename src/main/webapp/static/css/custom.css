@@ -74,9 +74,9 @@
     background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-.iconify.cart {
-    width: 100px;
-    height: 80px;
+.cart {
+    width: 70px;
+    height: 50px;
     float: right;
 }
 
@@ -86,18 +86,185 @@
 
 .modal-content {
 
-    background: black;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
+    margin: 2% auto; /* 15% from the top and centered */
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-
-    text-align: left;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: xx-large;
-    color: white;
+    width: 50%; /* Could be more or less, depending on screen size */
 }
 
 .table-data {
     font-size: small;
+}
+
+body {
+    font-family: Arial, serif;
+    font-size: 17px;
+    padding: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.row {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap; /* IE10 */
+    flex-wrap: wrap;
+    margin: 0 -16px;
+}
+
+.col-25 {
+    -ms-flex: 25%; /* IE10 */
+    flex: 25%;
+}
+
+.col-50 {
+    -ms-flex: 50%; /* IE10 */
+    flex: 50%;
+}
+
+.col-75 {
+    -ms-flex: 75%; /* IE10 */
+    flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+    padding: 0 16px;
+}
+
+.container {
+    background-color: #f2f2f2;
+    padding: 5px 20px 15px 20px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
+
+input[type=text] {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.icon-container {
+    margin-bottom: 20px;
+    padding: 7px 0;
+    font-size: 24px;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+a {
+    color: #2196F3;
+}
+
+hr {
+    border: 1px solid lightgrey;
+}
+
+span.price {
+    float: right;
+    color: grey;
+}
+
+.cancel {
+    float: right;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.cancel:hover {
+    background: red;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+    .row {
+        flex-direction: column-reverse;
+    }
+    .col-25 {
+        margin-bottom: 20px;
+    }
+}
+
+.infoBar {
+    z-index: 1;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+}
+
+.infoBar p {
+    z-index: 2;
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+
+}
+.infoBar span {
+    z-index: 2;
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+
+}
+.infoBar a {
+    z-index: 2;
+    float: right;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+
+}
+
+.infoBar a:hover {
+    background: #dddddd;
+    color: black;
+}
+
+
+.infoBar div.sort {
+    z-index: 2;
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#products {
+    margin-top: 10%;
 }
