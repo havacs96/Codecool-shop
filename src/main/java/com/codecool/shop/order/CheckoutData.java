@@ -32,5 +32,8 @@ public class CheckoutData {
         return shippingAddress;
     }
 
+    public Card getCard() {
+        return card;
+    }
 }
 

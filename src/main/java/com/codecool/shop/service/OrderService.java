@@ -5,6 +5,7 @@ import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.order.CheckoutData;
 import com.codecool.shop.order.LineItem;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.order.Order;
 
 import java.util.List;
 
@@ -22,37 +23,45 @@ public class OrderService {
         return productDao.find(id);
     }
 
-    public void addNewLineItem(LineItem product) {
-        orderDao.add(product);
+    public void addNewOrder(Order order) {
+        orderDao.add(order);
     }
 
-    public int getCartSize() {
-        return orderDao.getAll().size();
+    public void addNewLineItem(LineItem item, int orderId) {
+        orderDao.find(orderId).add(item);
     }
 
-    public List<LineItem> getAllItems() {
-        return orderDao.getAll();
+    public int getCartSize(int orderId) {
+        return orderDao.find(orderId).getAll().size();
     }
 
-    public LineItem getItemById(int id) {
-        for (LineItem lineItem : orderDao.getAll()) {
-            if (lineItem.getId() == id) {
+    public List<LineItem> getAllItems(int orderId) {
+        return orderDao.find(orderId).getAll();
+    }
+
+    public LineItem getItemById(int ItemId, int orderId) {
+        for (LineItem lineItem : orderDao.find(orderId).getAll()) {
+            if (lineItem.getId() == ItemId) {
                 return lineItem;
             }
         }
         return null;
     }
 
-    public void removeLineItem(int id) {
-        orderDao.remove(id);
+    public void removeLineItem(int ItemId, int orderId) {
+        orderDao.find(orderId).remove(ItemId);
     }
 
-    public void setQuantityForLineItem(int quantity, int id) {
-        var item = orderDao.find(id);
+    public void setQuantityForLineItem(int quantity, int ItemId, int orderId) {
+        var item = orderDao.find(orderId).find(ItemId);
         item.setQuantity(quantity);
     }
 
-    public void setCheckoutData(CheckoutData checkoutData){
-        orderDao.setCheckoutData(checkoutData);
+    public void setCheckoutData(CheckoutData checkoutData, int orderId){
+        orderDao.find(orderId).setCheckoutData(checkoutData);
+    }
+
+    public Order getOrder(int orderId) {
+        return orderDao.find(orderId);
     }
 }

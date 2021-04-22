@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -26,7 +27,13 @@ public class CartItemsServlet extends HttpServlet {
         var orderDaoDataStore = OrderDaoMem.getInstance();
         var orderService = new OrderService(productDataStore, orderDaoDataStore);
 
-        var allItems = orderService.getAllItems();
+        HttpSession session = req.getSession(false);
+        int orderId = 0;
+        if (session != null) {
+            orderId = (int) session.getAttribute("orderId");
+        }
+
+        var allItems = orderService.getAllItems(orderId);
         List<String> lineItemJson = new ArrayList<>();
         for (LineItem lineItem : allItems) {
             lineItemJson.add(new Gson().toJson(lineItem));
@@ -53,15 +60,21 @@ public class CartItemsServlet extends HttpServlet {
         }
         in.close();
 
+        HttpSession session = req.getSession(false);
+        int orderId = 0;
+        if (session != null) {
+            orderId = (int) session.getAttribute("orderId");
+        }
+
         JSONObject data = new JSONObject(content.toString());
         var quantity = data.getString("value");
-        var id = data.getInt("current_id");
+        var itemId = data.getInt("current_id");
             var quantityInt = Integer.parseInt(quantity);
 
             if (quantityInt == 0) {
-                orderService.removeLineItem(id);
+                orderService.removeLineItem(itemId, orderId);
             } else {
-                orderService.setQuantityForLineItem(quantityInt, id);
+                orderService.setQuantityForLineItem(quantityInt, itemId, orderId);
             }
 
             resp.setContentType("application/json");
