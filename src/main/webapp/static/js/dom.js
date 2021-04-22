@@ -151,11 +151,18 @@ export let dom = {
     addCheckBoxListener() {
         let checkbox = document.querySelector("#checkbox")
         let shippingForm = document.querySelector(".shipping-address")
+        let inputFields = shippingForm.querySelectorAll("input")
         checkbox.addEventListener("change", ()=> {
             if (checkbox.checked){
                 shippingForm.classList.add("hide")
+                for (let inputField of inputFields) {
+                    inputField.required = false
+                }
             } else {
                 shippingForm.classList.remove("hide")
+                for (let inputField of inputFields) {
+                    inputField.required = true
+                }
             }
         })
     }

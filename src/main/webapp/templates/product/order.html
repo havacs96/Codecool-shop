@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+
+  <!-- JS component -->
+  <script type="module" src='/static/js/cart_init.js' defer></script>
+
+  <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+</head>
+<body>
+<h1>Order successful</h1>
+<p>confirmation email sent to: <p th:text="${order.getCheckoutData().getEmail()}"></p></p>
+<h2>Order details</h2>
+
+<table class="table-data container">
+  <tr>
+    <th>Name:</th>
+    <th>Quantity:</th>
+    <th>Price:</th>
+    <th>Total price:</th>
+  </tr>
+  <tr th:each="item,iterStat : ${order.getAll()}" th:attr="data-id=${item.id}">
+    <td th:text="${item.name}"></td>
+    <td class="quantity" th:text="${item.quantity}"></td>
+    <td th:text="${item.defaultPriceForOne + ' ' + item.defaultCurrency}"></td>
+    <td th:text="${item.defaultPriceSum + ' ' + item.defaultCurrency}"></td>
+  </tr>
+</table>
+<br>
+<div>Shipping details:</div>
+<br>
+<div th:text="${order.getCheckoutData().getName()}"></div>
+<div th:text="${order.getCheckoutData().getShippingAddress().getCountry()}"></div>
+<div th:text="${order.getCheckoutData().getShippingAddress().getCity()}"></div>
+<div th:text="${order.getCheckoutData().getShippingAddress().getAddress()}"></div>
+<div th:text="${order.getCheckoutData().getShippingAddress().getZipcode()}"></div>
+<br>
+<div>Payment details:</div>
+<br>
+
+<div th:text="${order.getCheckoutData().getCard().getCardHolder()}"></div>
+<div th:text="${order.getCheckoutData().getCard().getCardNumber()}"></div>
+
+</body>
+</html>
