@@ -268,3 +268,11 @@ span.price {
 #products {
     margin-top: 10%;
 }
+
+.shipping-address.hide {
+    display: none;
+}
+
+.shipping-address {
+    display: block;
+}
