@@ -3,15 +3,7 @@ import {dataHandler} from "./data_handler.js";
 
 export let dom = {
 
-    init: function () {
-        this.addListeners()
-    },
-    addListeners: function () {
-        dom.addSortListeners()
-        dom.addCartButtonListeners()
-        dom.addCheckCartButtonListener()
-    },
-    addSortListeners: function (){
+    addSortListeners: function () {
         let options = document.querySelectorAll("select")
         for (let option of options) {
             option.addEventListener("change", (e) => {
@@ -30,10 +22,10 @@ export let dom = {
     addCheckCartButtonListener() {
         let cartIcon = document.querySelector(".iconify.cart")
         let cartModal = document.querySelector(".modal")
-        cartIcon.addEventListener("mouseenter", (e) =>{
+        cartIcon.addEventListener("mouseenter", (e) => {
             cartModal.style.display = "block";
         })
-        cartIcon.addEventListener("mouseleave", (e) =>{
+        cartIcon.addEventListener("mouseleave", (e) => {
             cartModal.style.display = "none";
         })
     },
@@ -52,6 +44,7 @@ export let dom = {
         let cards = ""
         for (let product of products) {
             let card = `
+         <div class="col col-sm-12 col-md-6 col-lg-4">
             <div class="card">
                 <img class="" src="/static/img/product_${product.id}.jpg" alt="" />
                 <div class="card-header">
@@ -60,20 +53,21 @@ export let dom = {
                 </div>
                 <div class="card-body">
                     <div class="card-text">
-                        <p class="lead">${product.defaultPrice}</p>
+                        <p class="lead">${product.defaultPrice} ${product.defaultCurrency}</p>
                     </div>
                     <div class="card-text">
                         <a class="btn btn-success add-to-cart" data-id=${product.id}>Add to cart</a>
                     </div>
                 </div>
-            </div>`
+            </div>
+         </div>`
             cards += card
         }
-        contentBody.innerHTML = `<div class="col col-sm-12 col-md-6 col-lg-4">${cards}</div>`
+        contentBody.innerHTML = `${cards}`
         dom.addCartButtonListeners()
     },
     addToCart: function (e) {
-        dataHandler.addProductToCart(e.currentTarget.dataset.id, function (cartSize){
+        dataHandler.addProductToCart(e.currentTarget.dataset.id, function (cartSize) {
             dom.changeCounter(cartSize);
             dom.loadCart();
         })
@@ -82,7 +76,7 @@ export let dom = {
         document.querySelector(".shopping-cart").innerHTML = cartSize
     },
     loadCart: function () {
-        dataHandler.getCartItems(function (items){
+        dataHandler.getCartItems(function (items) {
             dom.updateCart(items)
         })
     },
@@ -91,7 +85,7 @@ export let dom = {
         tableData.innerHTML = ''
         let listItems = "";
         for (let item of items) {
-            let sum = item.quantity*item.defaultPrice;
+            let sum = item.quantity * item.defaultPrice;
             let listItem = `<tr data-id="${item.id}">
                     <td>${item.name}</td>
                     <td class="quantity">${item.quantity}</td>
@@ -126,8 +120,8 @@ export let dom = {
     },
     saveNewQuantity(e) {
         let changedQuantity = document.querySelector('.changed-quantity');
-        if (e.key === "Enter" ) {
-            if (!isNaN(changedQuantity.value)){
+        if (e.key === "Enter") {
+            if (!isNaN(changedQuantity.value)) {
                 e.currentTarget.removeEventListener("keydown", dom.saveNewQuantity)
                 e.currentTarget.innerHTML = changedQuantity.value
                 e.currentTarget.addEventListener('click', dom.changeQuantityListener)
@@ -143,15 +137,26 @@ export let dom = {
     addCheckOutButtonListeners() {
         let checkOutButton = document.querySelector("#checkout-button")
         let checkOutModal = document.querySelector("#checkOutModal")
-        checkOutButton.addEventListener("click", (e)=> {
+        checkOutButton.addEventListener("click", (e) => {
             checkOutModal.style.display = "block"
         })
     },
     addCancelButtonListener() {
         let cancelButton = document.querySelector(".cancel")
         let checkOutModal = document.querySelector("#checkOutModal")
-        cancelButton.addEventListener("click", (e)=> {
+        cancelButton.addEventListener("click", (e) => {
             checkOutModal.style.display = "none"
+        })
+    },
+    addCheckBoxListener() {
+        let checkbox = document.querySelector("#checkbox")
+        let shippingForm = document.querySelector(".shipping-address")
+        checkbox.addEventListener("change", ()=> {
+            if (checkbox.checked){
+                shippingForm.classList.add("hide")
+            } else {
+                shippingForm.classList.remove("hide")
+            }
         })
     }
 }

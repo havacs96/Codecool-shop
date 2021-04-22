@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 
     <!-- JS component -->
-    <script type="module" src='/static/js/cart_dom.js' defer></script>
+    <script type="module" src='/static/js/cart_init.js' defer></script>
 
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 </head>
@@ -34,65 +34,96 @@
         <div class="row">
             <div class="col-75">
                 <div class="container">
-                    <form action="#">
+                    <form action="/cart_review" method="POST">
 
                         <div class="row">
                             <div class="col-50">
-                                <div class="cancel"><span class="iconify" data-icon="bx:bx-x" data-inline="false"></span></div>
                                 <h3>Billing Address</h3>
                                 <label for="fname"><i class="fa fa-user"></i> Full Name</label>
                                 <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
                                 <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                                <input type="text" id="email" name="email" placeholder="john@example.com">
+                                <input type="text" id="email" name="email" placeholder="john@example.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
                                 <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                                <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+                                <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" required>
                                 <label for="city"><i class="fa fa-institution"></i> City</label>
-                                <input type="text" id="city" name="city" placeholder="New York">
+                                <input type="text" id="city" name="city" placeholder="New York" required>
 
                                 <div class="row">
                                     <div class="col-50">
-                                        <label for="state">State</label>
-                                        <input type="text" id="state" name="state" placeholder="NY">
+                                        <label for="country">Country</label>
+                                        <input type="text" id="country" name="state" placeholder="NY" required>
                                     </div>
                                     <div class="col-50">
                                         <label for="zip">Zip</label>
                                         <input type="text" id="zip" name="zip" placeholder="10001">
                                     </div>
                                 </div>
+                                <div class="shipping-address hide">
+                                    <h3>Shipping Address</h3>
+                                    <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                                    <input type="text" id="sadr" name="address" placeholder="542 W. 15th Street" >
+                                    <label for="city"><i class="fa fa-institution"></i> City</label>
+                                    <input type="text" id="scity" name="city" placeholder="New York" >
+
+                                    <div class="row">
+                                        <div class="col-50">
+                                            <label for="scountry">Country</label>
+                                            <input type="text" id="scountry" name="state" placeholder="NY" >
+                                        </div>
+                                        <div class="col-50">
+                                            <label for="zip">Zip</label>
+                                            <input type="number" id="szip" name="zip" placeholder="10001" >
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-<!--                            <div class="col-50">-->
-<!--                                <h3>Payment</h3>-->
-<!--                                <label for="fname">Accepted Cards</label>-->
-<!--                                <div class="icon-container">-->
-<!--                                    <i class="fa fa-cc-visa" style="color:navy;"></i>-->
-<!--                                    <i class="fa fa-cc-amex" style="color:blue;"></i>-->
-<!--                                    <i class="fa fa-cc-mastercard" style="color:red;"></i>-->
-<!--                                    <i class="fa fa-cc-discover" style="color:orange;"></i>-->
-<!--                                </div>-->
-<!--                                <label for="cname">Name on Card</label>-->
-<!--                                <input type="text" id="cname" name="cardname" placeholder="John More Doe">-->
-<!--                                <label for="ccnum">Credit card number</label>-->
-<!--                                <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">-->
-<!--                                <label for="expmonth">Exp Month</label>-->
-<!--                                <input type="text" id="expmonth" name="expmonth" placeholder="September">-->
-<!--                                <div class="row">-->
-<!--                                    <div class="col-50">-->
-<!--                                        <label for="expyear">Exp Year</label>-->
-<!--                                        <input type="text" id="expyear" name="expyear" placeholder="2018">-->
-<!--                                    </div>-->
-<!--                                    <div class="col-50">-->
-<!--                                        <label for="cvv">CVV</label>-->
-<!--                                        <input type="text" id="cvv" name="cvv" placeholder="352">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                            <div class="col-50">
+                                <div class="cancel"><span class="iconify" data-icon="bx:bx-x" data-inline="false"></span></div>
+                                <h3>Payment</h3>
+                                <label for="cname">Name on Card</label>
+                                <input type="text" id="cname" name="cardname" placeholder="John More Doe" required>
+                                <label for="ccnum">Credit card number</label>
+                                <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" pattern="^([0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4})\b">
+                                <label for="expmonth">Exp Month</label>
+                                <select id="expmonth" required>
+                                    <option value="01">January</option>
+                                    <option value="02">February </option>
+                                    <option value="03">March</option>
+                                    <option value="04">April</option>
+                                    <option value="05">May</option>
+                                    <option value="06">June</option>
+                                    <option value="07">July</option>
+                                    <option value="08">August</option>
+                                    <option value="09">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                                <div class="row">
+                                    <div class="col-50">
+                                        <label for="expyear">Exp Year</label>
+                                        <select id="expyear" required>
+                                            <option value="16"> 2021</option>
+                                            <option value="17"> 2022</option>
+                                            <option value="18"> 2023</option>
+                                            <option value="19"> 2024</option>
+                                            <option value="20"> 2025</option>
+                                            <option value="21"> 2026</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-50">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" id="cvv" name="cvv" placeholder="352" minlength="3" maxlength="3" required>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                         <label>
-                            <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+                            <input id="checkbox" type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
                         </label>
-                        <input type="submit" value="Continue to payment" class="btn">
+                        <input type="submit" value="Pay" class="btn">
                     </form>
                 </div>
             </div>
