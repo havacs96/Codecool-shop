@@ -4,16 +4,16 @@ public class CheckoutData {
 
     private String name;
     private String email;
-    private long phoneNumber;
     private BillingAddress billingAddress;
     private ShippingAddress shippingAddress;
+    private Card card;
 
-    public CheckoutData(String name, String email, long phoneNumber, BillingAddress billingAddress, ShippingAddress shippingAddress) {
+    public CheckoutData(String name, String email, BillingAddress billingAddress, ShippingAddress shippingAddress, Card card) {
         this.name = name;
         this.email = email;
-        this.phoneNumber = phoneNumber;
         this.billingAddress = billingAddress;
         this.shippingAddress = shippingAddress;
+        this.card = card;
     }
 
     public String getName() {
@@ -22,10 +22,6 @@ public class CheckoutData {
 
     public String getEmail() {
         return email;
-    }
-
-    public long getPhoneNumber() {
-        return phoneNumber;
     }
 
     public BillingAddress getBillingAddress() {

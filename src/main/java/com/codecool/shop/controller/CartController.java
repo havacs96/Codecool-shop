@@ -29,4 +29,27 @@ public class CartController extends HttpServlet {
         context.setVariable("size", orderService.getAllItems().size());
         engine.process("product/cart_review.html", context, resp.getWriter());
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        var print = req.getParameterNames();
+//        while ( print.hasMoreElements() ) {
+//            Object o = print.nextElement();
+//            System.out.println(o);
+//            // Do whatever it is you want to do with o.
+//        }
+//        zip
+//                firstname
+//        cvv
+//                address
+//        city
+//                cardname
+//        state
+//                cardnumber
+//        sameadr
+//                email
+
+
+        resp.sendRedirect(req.getContextPath() + "/order");
+    }
 }

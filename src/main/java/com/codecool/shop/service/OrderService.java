@@ -2,6 +2,7 @@ package com.codecool.shop.service;
 
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.order.CheckoutData;
 import com.codecool.shop.order.LineItem;
 import com.codecool.shop.model.Product;
 
@@ -49,5 +50,9 @@ public class OrderService {
     public void setQuantityForLineItem(int quantity, int id) {
         var item = orderDao.find(id);
         item.setQuantity(quantity);
+    }
+
+    public void setCheckoutData(CheckoutData checkoutData){
+        orderDao.setCheckoutData(checkoutData);
     }
 }
