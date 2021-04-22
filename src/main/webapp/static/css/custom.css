@@ -276,3 +276,24 @@ span.price {
 .shipping-address {
     display: block;
 }
+
+/* headers */
+.header {
+    margin-top: 5%;
+    padding: 60px;
+    text-align: center;
+    background: #d4effa;
+    border-color: #888888;
+    color: white;
+    font-size: 30px;
+    text-shadow: 1px 1px #000000;
+}
+
+.cart-header {
+    text-align: center;
+    background: #d4effa;
+    border-color: #888888;
+    color: white;
+    font-size: 30px;
+    text-shadow: 1px 1px #000000;
+}

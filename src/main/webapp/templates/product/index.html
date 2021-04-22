@@ -58,6 +58,7 @@
         </label>
     </div>
 </div>
+<div th:replace="header.html :: copy"></div>
 <div id="products" class="row">
     <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
         <div class="card">
